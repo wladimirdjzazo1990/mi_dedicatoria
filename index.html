@@ -11,7 +11,15 @@
 <style>
   *{box-sizing:border-box;}
   html,body{margin:0;height:100%;background:#000;overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;}
-  canvas{display:block;}
+  canvas{
+    display:block;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    z-index:1;
+  }
 
   #main-title{
     position:fixed;top:40px;left:0;right:0;width:100%;
@@ -143,12 +151,9 @@ const canvas = document.getElementById('c');
 const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
 function resizeRenderer(){
   const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-  const maxWidth = 3840;
-  const maxHeight = 2160;
-  const width = Math.min(innerWidth, maxWidth/pixelRatio);
-  const height = Math.min(innerHeight, maxHeight/pixelRatio);
   renderer.setPixelRatio(pixelRatio);
-  renderer.setSize(width, height, false);
+  // Ajusta al tamaño real de la ventana (sin límite artificial)
+  renderer.setSize(innerWidth, innerHeight, false);
   camera.aspect = innerWidth/innerHeight;
   camera.updateProjectionMatrix();
 }
